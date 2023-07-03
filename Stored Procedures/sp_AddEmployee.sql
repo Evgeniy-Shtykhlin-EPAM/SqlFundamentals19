@@ -1,15 +1,18 @@
 ﻿CREATE PROCEDURE [dbo].[sp_AddEmployee]
+    @CompanyName nvarchar(30),
+    @Street nvarchar(50),
 	@EmployeeName nvarchar(100)= NULL,
     @FirstName nvarchar(50)= NULL,
     @LastName nvarchar(50)= NULL,
-	@CompanyName nvarchar(30),
-    @Position nvarchar(30) = '',
-    @Street nvarchar(50),
-    @City nvarchar(50) = '',
-	@State nvarchar(20)= '',
-    @ZipCode nvarchar(20)= ''
+    @Position nvarchar(30) =NULL,
+    @City nvarchar(50) = NULL,
+    @State nvarchar(20)= NULL,
+    @ZipCode nvarchar(20)= NULL
 AS
-    if (@EmployeeName IS NULL AND @FirstName IS NULL AND @LastName IS NULL)
+    if 
+        (SELECT TRIM(@EmployeeName) AS TrimmedString) is null
+    AND (SELECT TRIM(@FirstName) AS TrimmedString) is null
+    AND (SELECT TRIM(@LastName) AS TrimmedString) is null
     BEGIN  
        PRINT 'Name or FirstName or Last name should be fill'  
     END
