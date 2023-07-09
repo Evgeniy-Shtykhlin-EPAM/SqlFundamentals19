@@ -74,6 +74,6 @@
     <Build Include="Triggers\TriggerForEmployee.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SqlFundamentals19.publish.xml" />
+    <None Include="SqlFundamentals19DB.publish.xml" />
   </ItemGroup>
 </Project>
