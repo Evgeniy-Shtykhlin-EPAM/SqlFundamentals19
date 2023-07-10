@@ -10,6 +10,9 @@
     @ZipCode nvarchar(20)= NULL
 AS
     DECLARE @Tempcompany NVARCHAR(20)=@CompanyName
+    DECLARE @PersonId int
+    DECLARE @AddressId int
+
 
     if 
         (SELECT TRIM(@EmployeeName) AS TrimmedString) is null
@@ -25,17 +28,21 @@ AS
                 OR (SELECT TRIM(@LastName) AS TrimmedString) is not null
              BEGIN
 
+             
+
                 INSERT into Person(FirstName,LastName)
                 values
                 (@FirstName,@LastName)
+                SET @PersonId = SCOPE_IDENTITY()
 
                 INSERT into Address(Street,City,State,ZipCode)
                 values
                 (@Street,@City,@State,@ZipCode)
+                SET @AddressId = SCOPE_IDENTITY()
 
                 INSERT into Employee(AddressId,PersonId,EmployeeName,Position,CompanyName)
                 values
-                (IDENT_CURRENT('Address'), IDENT_CURRENT('Person'), @EmployeeName, @Position, @Tempcompany);
+                (@AddressId, @PersonId, @EmployeeName, @Position, @Tempcompany);
 
              END
              else
