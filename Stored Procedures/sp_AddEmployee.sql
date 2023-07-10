@@ -33,15 +33,9 @@ AS
                 values
                 (@Street,@City,@State,@ZipCode)
 
-                
-
                 INSERT into Employee(AddressId,PersonId,EmployeeName,Position,CompanyName)
                 values
-                ((select top(1) a.Id from Address as a 
-                where a.Street=@Street and a.City=@City and a.State=@State and a.ZipCode=@ZipCode),
-                (select top(1) p.Id from Person as p
-                where p.FirstName=@FirstName and p.LastName=@LastName),
-                @EmployeeName,@Position,@Tempcompany);
+                (IDENT_CURRENT('Address'), IDENT_CURRENT('Person'), @EmployeeName, @Position, @Tempcompany);
 
              END
              else
